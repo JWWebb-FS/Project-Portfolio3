@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
+const os = require('os');
 require('dotenv').config();
 const {sequelize} = require('./config/database');
 const authRouter = require('./routes/auth');
@@ -11,6 +12,21 @@ const Token = require('./config/Token');
 
 const app = express();
 const port = process.env.PORT || 3001;
+const host = '0.0.0.0';
+
+function getLocalNetworkIp() {
+  const interfaces = os.networkInterfaces();
+
+  for (const addresses of Object.values(interfaces)) {
+    for (const address of addresses || []) {
+      if (address.family === 'IPv4' && !address.internal) {
+        return address.address;
+      }
+    }
+  }
+
+  return null;
+}
 
 app.use(express.json());
 app.use(cors());
@@ -85,8 +101,16 @@ app.get('/search', async (req, res) => {
 
 sequelize.sync()
   .then(() => {
-    app.listen(port, () => {
+    app.listen(port, host, () => {
+      const networkIp = getLocalNetworkIp();
+
       console.log(`Server is listening on port ${port}`);
+      console.log(`Local URL: http://localhost:${port}`);
+      if (networkIp) {
+        console.log(`Network URL: http://${networkIp}:${port}`);
+      } else {
+        console.log('Network URL: unavailable - no local network IP found');
+      }
     });
   })
   .catch((error) => {
