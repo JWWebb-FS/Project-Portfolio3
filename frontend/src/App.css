@@ -17,6 +17,94 @@
   }
 }
 
+.search-page {
+  padding: 20px;
+  font-family: var(--sans);
+}
+
+.artist-grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.artist-card {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  box-shadow: rgba(0, 0, 0, 0.06) 0 4px 10px;
+  text-align: left;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.artist-card:hover {
+  border-color: var(--accent-border);
+  box-shadow:
+    rgba(0, 0, 0, 0.16) 0 18px 30px -12px,
+    rgba(0, 0, 0, 0.08) 0 8px 16px -8px;
+  transform: translateY(-3px) scale(1.01);
+}
+
+.artist-card__image {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.artist-card__details {
+  min-width: 0;
+}
+
+.artist-card__details h3 {
+  margin: 0 0 6px;
+  color: var(--text-h);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.artist-card__details p {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.artist-card__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 6px;
+  background: #1db954;
+  color: #08120b;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.artist-card__link:hover {
+  background: #22d760;
+  transform: translateY(-1px);
+}
+
+.artist-card__link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .hero {
   position: relative;
 
@@ -53,6 +141,23 @@
     width: auto;
     transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
       scale(0.8);
+  }
+}
+
+@media (max-width: 700px) {
+  .artist-card {
+    grid-template-columns: 72px minmax(0, 1fr);
+  }
+
+  .artist-card__image {
+    width: 72px;
+    height: 72px;
+  }
+
+  .artist-card__link {
+    grid-column: 1 / -1;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
