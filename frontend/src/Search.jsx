@@ -12,7 +12,9 @@ const Search = () => {
     window.location.reload();
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (event) => {
+    event?.preventDefault();
+
     const token = localStorage.getItem('token');
 
     try {
@@ -36,28 +38,28 @@ const Search = () => {
 
   return (
     <div className="search-page">
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <header className="search-header">
         <h2>Spotify Artist Search</h2>
         <button 
           onClick={handleLogout}
-          style={{ padding: '8px 16px', cursor: 'pointer', backgroundColor: '#333', color: 'white', border: 'none', borderRadius: '4px' }}
+          className="logout-button"
         >
           Logout
         </button>
       </header>
       
-      <div style={{ marginTop: '20px' }}>
+      <form className="search-controls" onSubmit={handleSearch}>
         <input 
           type="text" 
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
           placeholder="Search for an artist..." 
-          style={{ padding: '10px', width: '300px', fontSize: '16px', marginRight: '10px' }}
+          className="search-input"
         />
-        <button onClick={handleSearch} style={{ padding: '10px 20px', fontSize: '16px', cursor: 'pointer' }}>
+        <button onClick={handleSearch} className="search-button">
           Search
         </button>
-      </div>
+      </form>
 
       <div className="artist-grid">
         {results.map((artist) => (
