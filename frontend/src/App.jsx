@@ -4,7 +4,10 @@ import Search from './Search'
 import './App.css'
 
 function App() {
-  const [token, setToken] = useState(() => localStorage.getItem('token'))
+  const [token] = useState(() => {
+    const params = new URLSearchParams(window.location.search)
+    return params.get('token') || localStorage.getItem('token')
+  })
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -12,7 +15,6 @@ function App() {
 
     if (tokenParam) {
       localStorage.setItem('token', tokenParam)
-      setToken(tokenParam)
       params.delete('token')
 
       const newSearch = params.toString()
