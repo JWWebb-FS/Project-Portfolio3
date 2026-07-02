@@ -1,3 +1,5 @@
-◇ injected env (7) from .env // tip: ⌘ enable debugging { debug: true }
-◇ injected env (0) from .env // tip: ⌘ override existing { override: true }
+◇ injected env (7) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
 Server is listening on port 3001
+Local URL: http://localhost:3001
+Network URL: http://172.20.10.2:3001
